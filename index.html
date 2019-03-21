@@ -1,0 +1,53 @@
+<html>
+  <head>
+      <link rel="stylesheet" href="index.css">
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+      Recherche Poste
+      <div id="app">
+          <ul>
+            <form v-on:submit.prevent="searchVille">
+              <input
+              v-model="newSearchVille"
+
+              placeholder="Ville"
+              >
+              <button>Recherche</button>
+            </form>
+          </ul>
+          <ul>
+            <form v-on:submit.prevent="searchCodePostal">
+              <input
+              v-model="newSearchCodeP"
+
+              placeholder="Code Postal"
+              >
+              <button>Recherche</button>
+            </form>
+          </ul>
+          <ol v-if="search">
+            <li v-for="poste in postes">
+              <ul>NOM :
+                <i v-if="poste.fields.complement_d_adresse">{{ poste.fields.complement_d_adresse }}</i>
+                <i v-else> POSTE</i>
+              </ul>
+              <ul>ADRESSE : {{ poste.fields.adresse}} {{ poste.fields.code_postal}} {{poste.fields.localite}}</ul>
+              <ul>NUMERO DE TELEPHONE : {{ poste.fields.numero_de_telephone }} </ul>
+              <ul>DISTRIBUTEUR BILLET :
+                <i v-if="poste.fields.distributeur_de_billets==='Oui'"><i class="glyphicon glyphicon-ok"></i></i>
+                <i v-else> <i class="glyphicon glyphicon-remove"></i></i>
+              </ul>
+              <ul>AFFRANCHISSEMENT EN LIBRE SERVICE :
+                <i v-if="poste.fields.affranchissement_libre_service==='Oui'"><i class="glyphicon glyphicon-ok"></i></i>
+                <i v-else> <i class="glyphicon glyphicon-remove"></i></i>
+              </ul>
+            </li>
+          </ol>
+      </div>
+
+      <script src="index.js"></script>
+  </body>
+</html>
